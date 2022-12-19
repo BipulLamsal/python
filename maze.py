@@ -25,6 +25,7 @@ clock = pygame.time.Clock()
 x = 0                    # x axis
 y = 0                    # y axis
 w = 40                   # width of cell
+count =0
 grid = []
 visited = []
 stack = []
@@ -146,11 +147,10 @@ def plot_route_back(x,y):
 
 
 
+
 x, y = 0, 40                    # starting position of grid
 build_grid(0, 0, 40)            # 1st argument = x value, 2nd argument = y value, 3rd argument = width of cell
 carve_out_maze(x,y)
-plot_route_back(720, 800)         # call the plot solution function
-
 
 # ##### pygame loop #######
 running = True
@@ -159,6 +159,15 @@ while running:
     clock.tick(FPS)
     # process input (events)
     for event in pygame.event.get():
+
+        if (count == 0):
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousex,mousey = pygame.mouse.get_pos()
+                count = count+1
+                plot_route_back((mousex//40)*40,(mousey//40)*40)
+          
+                
+
         # check for closing the window
         if event.type == pygame.QUIT:
             running = False
